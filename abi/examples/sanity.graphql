@@ -1,0 +1,19 @@
+type Module {
+  # some comment
+  method1(
+    arg: Bytes!
+  ): UInt32!
+
+  method2(
+    custom: Custom!
+  ): Int32
+}
+
+type Custom {
+  prop1: String!
+  nested: Nested
+}
+
+type Nested {
+  prop: UInt8
+}
