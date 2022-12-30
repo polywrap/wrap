@@ -18,8 +18,12 @@ const abi: Abi = {
         }
       ],
       result: {
-        kind: "Scalar",
-        scalar: "String"
+        kind: "Result",
+        type: {
+          kind: "Scalar",
+          scalar: "String"
+        },
+        required: true
       }
     }
   ]
