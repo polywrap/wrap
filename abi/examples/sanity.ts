@@ -2,10 +2,10 @@ import { Abi } from "../abi-0.2";
 
 const abi: Abi = {
   version: "0.2",
-  methods: [
+  functions: [
     {
-      kind: "Method",
-      name: "method1",
+      kind: "Function",
+      name: "func1",
       comment: "some comment",
       args: [
         {
@@ -28,15 +28,16 @@ const abi: Abi = {
       }
     },
     {
-      kind: "Method",
-      name: "method2",
+      kind: "Function",
+      name: "func2",
       args: [
         {
           kind: "Argument",
           name: "custom",
           type: {
             kind: "Ref",
-            ref: "Custom"
+            ref_name: "Custom",
+            ref_kind: "Object"
           },
           required: true
         }
@@ -70,7 +71,8 @@ const abi: Abi = {
           name: "nested",
           type: {
             kind: "Ref",
-            ref: "Nested"
+            ref_name: "Nested",
+            ref_kind: "Object"
           },
           required: false
         }

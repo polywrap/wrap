@@ -2,10 +2,10 @@ import { Abi } from "../abi-0.2";
 
 const abi: Abi = {
   version: "0.2",
-  methods: [
+  functions: [
     {
-      kind: "Method",
-      name: "method",
+      kind: "Function",
+      name: "fooFunc",
       args: [
         {
           kind: "Argument",

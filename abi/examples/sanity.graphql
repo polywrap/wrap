@@ -1,10 +1,10 @@
 type Module {
   # some comment
-  method1(
+  func1(
     arg: Bytes!
   ): UInt32!
 
-  method2(
+  func2(
     custom: Custom!
   ): Int32
 }

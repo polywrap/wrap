@@ -11,7 +11,7 @@ interface ImportedAbi extends AbiDefs {
 }
 
 interface AbiDefs {
-  methods?: MethodDef[];
+  functions?: FunctionDef[];
   objects?: ObjectDef[];
   enums?: EnumDef[];
   env?: EnvDef;
@@ -20,7 +20,7 @@ interface AbiDefs {
 /// Definitions (user-defined)
 
 type AnyDef =
-  | MethodDef
+  | FunctionDef
   | ArgumentDef
   | ResultDef
   | ObjectDef
@@ -28,14 +28,17 @@ type AnyDef =
   | EnumDef
   | EnvDef;
 
-type DefKind =
-  | "Method"
-  | "Argument"
-  | "Result"
+type UniqueDefKind =
+  | "Function"
   | "Object"
-  | "Property"
   | "Enum"
   | "Env";
+
+type DefKind =
+  | UniqueDefKind
+  | "Argument"
+  | "Result"
+  | "Property";
 
 interface Def {
   kind: DefKind;
@@ -53,8 +56,8 @@ interface TypeDef extends Def {
 
 interface NamedTypeDef extends NamedDef, TypeDef { }
 
-interface MethodDef extends NamedDef {
-  kind: "Method";
+interface FunctionDef extends NamedDef {
+  kind: "Function";
   args: ArgumentDef[];
   result: ResultDef;
 }
@@ -125,7 +128,8 @@ interface MapType extends Type {
 
 interface RefType extends Type {
   kind: "Ref";
-  ref: string;
+  ref_kind: UniqueDefKind;
+  ref_name: string;
 }
 
 /// Constants
