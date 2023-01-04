@@ -117,19 +117,15 @@ interface ScalarType<
 
 interface ArrayType extends Type {
   kind: "Array";
-  item: {
-    required: boolean;
-    type: AnyType;
-  }
+  required: boolean;
+  item: AnyType;
 }
 
 interface MapType extends Type {
   kind: "Map";
   key: ScalarType<MapKeyTypeName>;
-  value: {
-    required: boolean;
-    type: AnyType
-  };
+  required: boolean;
+  value: AnyType;
 }
 
 interface RefType extends Type {
