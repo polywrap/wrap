@@ -363,7 +363,7 @@ plugin wrapper bindings
 wrapper protocol
 invocation 
 
-### Core Client
+### wrap core client types 
 - Used to invoke functions on wrappers
 - Used to resolve wrappers from a WRAP URI
 
@@ -397,16 +397,64 @@ validate<TUri extends Uri | string>(
   options: ValidateOptions
 ): Promise<Result<true, Error>>;
 ```
+```typescript
+interface Wrapper {
+    invoke: (method: string, args: ISerializible)
+}
+interface Plugin {
+    invoke: (method: string, args: ISerializible)
+}
 
-### Wasm wrapper runtime and wasm runtime
+interface CoreClient {
+    invoke: (uri: string, method: string, args: ISerializable): ISerializable
+}
+
+interface ISerializable<T> {
+    serialize(): Buffer,
+    deserialize(): T
+}
+
+interface SomeArgs implements ISerializable<SomeArgs> {
+    prop: String,
+    deserialize(): SomeArgs {
+        return this;
+  }
+}
+
+class WrapBuffer<T> implements ISerializable<T> {
+    serialize(): Buffer {
+        return this.buffer;
+    }
+    desarialize(): T {
+        return msgPackDeserialize(this);
+    }
+    buffer: Buffer,
+}
+
+client.invoke(pluginUri, "test()")
+
+plugin.test()
+
+
+wrapper.invoke(uri, method)
+
+const { wrapper } = loadWrapper();
+wrapper.invoke()
+```
+
+
+### Wasm wrapper runtime
+- Depends on wrap core types
 - Connects/Exposes the WASM module to the client and client to the wasm module
-- Implements the WRAP standard (invocation protocol)
+- Implements the wrapper protocol.
 - Implements the `Wrapper` interface to be used inside of a Client
-
+- Implements the `IWrapPackage` interface
+- 
 ### Plugin runtime
 - Connects/Exposes the plugin to the client and client to the plugin
 - Implements the WRAP standard (invocation protocol)
 - Implements the `Wrapper` interface to be used inside of a Client
+- Implements the `IWrapPackage` interface
 
 ### Wasm and plugin wrapper bindings
 - Implement the wrapper protocol and improves the wrapper development experience
@@ -436,3 +484,23 @@ namespace gelato {
 - CidtClient ((self.callerUri) = CCSL) + PCSL
 
 ### PolywrapClient
+
+
+### WIP
+core lib
+    Wrapper interface
+    Core Client interface
+    
+core client impl
+    - core lib
+    
+wasm wrapper runtime 1
+    - core lib
+
+wasm wrapper runtime 2
+    - core lib
+
+host app
+    - core client impl
+    - wasm wrapper runtime 1
+    - wasm wrapper runtime 2
