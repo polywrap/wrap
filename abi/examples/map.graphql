@@ -9,6 +9,7 @@ type CustomType {
   mapOfArr: Map! @annotate(type: "Map<String!, [Int!]!>!")
   mapOfObj: Map! @annotate(type: "Map<String!, AnotherType!>!")
   mapOfArrOfObj: Map! @annotate(type: "Map<String!, [AnotherType!]!>!")
+  mapOfMapOfObj: Map! @annotate(type: "Map<String!, Map<String!, AnotherType!>!>!")
 }
 
 type AnotherType {

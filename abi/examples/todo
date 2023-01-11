@@ -1,5 +1,8 @@
-- env
-- arrays
-- maps
-- enums
-- comments (all locations)
+TODO:
+- referencing imports
+- implemented interfaces
+- parity with old ABI
+- notes on things removed from old ABI (capabilities)
+- JSON-schema
+- Transpile to TS
+- compile the ts example files to make sure they implement the ABI well

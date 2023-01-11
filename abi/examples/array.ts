@@ -13,10 +13,12 @@ const abi: Abi = {
           name: "uArray",
           type: {
             kind: "Array",
-            required: true,
             item: {
-              kind: "Scalar",
-              scalar: "UInt"
+              required: true,
+              type: {
+                kind: "Scalar",
+                scalar: "UInt"
+              }
             }
           }
         },
@@ -26,10 +28,12 @@ const abi: Abi = {
           name: "uOptArray",
           type: {
             kind: "Array",
-            required: true,
             item: {
-              kind: "Scalar",
-              scalar: "UInt"
+              required: true,
+              type: {
+                kind: "Scalar",
+                scalar: "UInt"
+              }
             }
           }
         },
@@ -39,10 +43,12 @@ const abi: Abi = {
           name: "uArray",
           type: {
             kind: "Array",
-            required: true,
             item: {
-              kind: "Scalar",
-              scalar: "UInt"
+              required: true,
+              type: {
+                kind: "Scalar",
+                scalar: "UInt"
+              }
             }
           }
         },
@@ -52,13 +58,17 @@ const abi: Abi = {
           name: "uOptArrayOptArray",
           type: {
             kind: "Array",
-            required: false,
             item: {
-              kind: "Array",
               required: false,
-              item: {
-                kind: "Scalar",
-                scalar: "UInt32"
+              type: {
+                kind: "Array",
+                item: {
+                  required: false,
+                  type: {
+                    kind: "Scalar",
+                    scalar: "UInt32"
+                  }
+                }
               }
             }
           }
@@ -69,16 +79,22 @@ const abi: Abi = {
           name: "uArrayOptArrayArray",
           type: {
             kind: "Array",
-            required: false,
             item: {
-              kind: "Array",
-              required: true,
-              item: {
+              required: false,
+              type: {
                 kind: "Array",
-                required: true,
                 item: {
-                  kind: "Scalar",
-                  scalar: "UInt32"
+                  required: true,
+                  type: {
+                    kind: "Array",
+                    item: {
+                      required: true,
+                      type: {
+                        kind: "Scalar",
+                        scalar: "UInt32"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -90,19 +106,27 @@ const abi: Abi = {
           name: "crazyArray",
           type: {
             kind: "Array",
-            required: false,
             item: {
-              kind: "Array",
-              required: true,
-              item: {
+              required: false,
+              type: {
                 kind: "Array",
-                required: false,
                 item: {
-                  kind: "Array",
                   required: true,
-                  item: {
-                    kind: "Scalar",
-                    scalar: "UInt32"
+                  type: {
+                    kind: "Array",
+                    item: {
+                      required: false,
+                      type: {
+                        kind: "Array",
+                        item: {
+                          required: true,
+                          type: {
+                            kind: "Scalar",
+                            scalar: "UInt32"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }

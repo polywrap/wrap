@@ -18,10 +18,12 @@ const abi: Abi = {
               kind: "Scalar",
               scalar: "String"
             },
-            required: true,
             value: {
-              kind: "Scalar",
-              scalar: "Int",
+              required: true,
+              type: {
+                kind: "Scalar",
+                scalar: "Int",
+              }
             }
           },
           required: false,
@@ -35,10 +37,12 @@ const abi: Abi = {
             kind: "Scalar",
             scalar: "String"
           },
-          required: true,
           value: {
-            kind: "Scalar",
-            scalar: "Int",
+            required: true,
+            type: {
+              kind: "Scalar",
+              scalar: "Int",
+            }
           }
         },
         required: false,
@@ -60,10 +64,12 @@ const abi: Abi = {
               kind: "Scalar",
               scalar: "String",
             },
-            required: false,
-            value: {  
-              kind: "Scalar",
-              scalar: "Int",
+            value: {
+              required: false,
+              type: {
+                kind: "Scalar",
+                scalar: "Int",
+              }
             }
           }
         },
@@ -77,14 +83,18 @@ const abi: Abi = {
               kind: "Scalar",
               scalar: "String",
             },
-            required: true,
             value: {
-              kind: "Array",
               required: true,
-              item: {
-                kind: "Scalar",
-                scalar: "Int"
-              },
+              type: {
+                kind: "Array",
+                item: {
+                  required: true,
+                  type: {
+                    kind: "Scalar",
+                    scalar: "Int"
+                  }
+                },
+              }
             }
           }
         },
@@ -98,11 +108,13 @@ const abi: Abi = {
               kind: "Scalar",
               scalar: "String",
             },
-            required: true,
             value: {
-              kind: "Ref",
-              ref_kind: "Object",
-              ref_name: "AnotherType"
+              required: true,
+              type: {
+                kind: "Ref",
+                ref_kind: "Object",
+                ref_name: "AnotherType"
+              }
             }
           }
         },
@@ -116,14 +128,48 @@ const abi: Abi = {
               kind: "Scalar",
               scalar: "String",
             },
-            required: true,
             value: {
-              kind: "Array",
               required: true,
-              item: {
-                kind: "Ref",
-                ref_kind: "Object",
-                ref_name: "AnotherType"
+              type: {
+                kind: "Array",
+                item: {
+                  required: true,
+                  type: {
+                    kind: "Ref",
+                    ref_kind: "Object",
+                    ref_name: "AnotherType"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          kind: "Property",
+          required: true,
+          name: "mapOfMapOfObj",
+          type: {
+            kind: "Map",
+            key: {
+              kind: "Scalar",
+              scalar: "String",
+            },
+            value: {
+              required: true,
+              type: {
+                kind: "Map",
+                key: {
+                  kind: "Scalar",
+                  scalar: "String"
+                },
+                value: {
+                  required: true,
+                  type: {
+                    kind: "Ref",
+                    ref_kind: "Object",
+                    ref_name: "AnotherType"
+                  }
+                }
               }
             }
           }

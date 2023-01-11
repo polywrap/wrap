@@ -6,7 +6,6 @@ const abi: Abi = {
     {
       kind: "Function",
       name: "func1",
-      comment: "some comment",
       args: [
         {
           kind: "Argument",

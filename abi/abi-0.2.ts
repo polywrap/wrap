@@ -5,21 +5,21 @@ export interface Abi extends AbiDefs {
   imports?: ImportedAbi[];
 }
 
-interface ImportedAbi extends AbiDefs {
-  namespace: string;
-  uri: string;
-}
-
-interface AbiDefs {
+export interface AbiDefs {
   functions?: FunctionDef[];
   objects?: ObjectDef[];
   enums?: EnumDef[];
   env?: EnvDef;
 }
 
+export interface ImportedAbi extends AbiDefs {
+  namespace: string;
+  uri: string;
+}
+
 /// Definitions (user-defined)
 
-type AnyDef =
+export type AnyDef =
   | FunctionDef
   | ArgumentDef
   | ResultDef
@@ -28,115 +28,113 @@ type AnyDef =
   | EnumDef
   | EnvDef;
 
-type UniqueDefKind =
+export type UniqueDefKind =
   | "Function"
   | "Object"
   | "Enum"
   | "Env";
 
-type DefKind =
+export type DefKind =
   | UniqueDefKind
   | "Argument"
   | "Result"
   | "Property";
 
-interface Def {
+export interface Def {
   kind: DefKind;
 }
 
-interface NamedDef extends Def {
+export interface NamedDef extends Def {
   name: string;
-  comment?: string;
 }
 
-interface TypeDef extends Def {
-  required: boolean;
-  type: AnyType;
-}
+export interface InlinedTypeDef extends Def, OptionalType { }
 
-interface NamedTypeDef extends NamedDef, TypeDef { }
+export interface NamedTypeDef extends NamedDef, InlinedTypeDef { }
 
-interface FunctionDef extends NamedDef {
+export interface FunctionDef extends NamedDef {
   kind: "Function";
   args: ArgumentDef[];
   result: ResultDef;
 }
 
-interface ArgumentDef extends NamedTypeDef {
+export interface ArgumentDef extends NamedTypeDef {
   kind: "Argument";
 }
 
-interface ResultDef extends TypeDef {
+export interface ResultDef extends InlinedTypeDef {
   kind: "Result";
 }
 
-interface ObjectDef extends NamedDef {
+export interface ObjectDef extends NamedDef {
   kind: "Object";
   props: PropertyDef[];
 }
 
-interface PropertyDef extends NamedTypeDef {
+export interface PropertyDef extends NamedTypeDef {
   kind: "Property";
 }
 
-interface EnumDef extends NamedDef {
+export interface EnumDef extends NamedDef {
   kind: "Enum";
   constants: string[];
 }
 
-interface EnvDef extends NamedDef {
+export interface EnvDef extends Def {
   kind: "Env";
-  name: "Env";
   props: PropertyDef[];
 }
 
 /// Types (built-ins)
 
-type AnyType =
+export type AnyType =
   | ScalarType
   | ArrayType
   | MapType
   | RefType;
 
-type TypeKind =
+export type TypeKind =
   | "Scalar"
   | "Array"
   | "Map"
   | "Ref";
 
-interface Type {
+export interface Type {
   kind: TypeKind;
 }
 
-interface ScalarType<
+export interface ScalarType<
   TScalarTypeName extends ScalarTypeName = ScalarTypeName
 > extends Type {
   kind: "Scalar";
   scalar: TScalarTypeName;
 }
 
-interface ArrayType extends Type {
+export interface ArrayType extends Type {
   kind: "Array";
-  required: boolean;
-  item: AnyType;
+  item: OptionalType;
 }
 
-interface MapType extends Type {
+export interface MapType extends Type {
   kind: "Map";
   key: ScalarType<MapKeyTypeName>;
-  required: boolean;
-  value: AnyType;
+  value: OptionalType;
 }
 
-interface RefType extends Type {
+export interface RefType extends Type {
   kind: "Ref";
   ref_kind: UniqueDefKind;
   ref_name: string;
 }
 
+export interface OptionalType {
+  required: boolean;
+  type: AnyType;
+}
+
 /// Constants
 
-const scalarTypeSet = {
+export const scalarTypeSet = {
   UInt: "UInt",
   UInt8: "UInt8",
   UInt16: "UInt16",
@@ -153,11 +151,11 @@ const scalarTypeSet = {
   BigNumber: "BigNumber",
   JSON: "JSON",
 };
-type ScalarTypeSet = typeof scalarTypeSet;
+export type ScalarTypeSet = typeof scalarTypeSet;
 
-type ScalarTypeName = keyof ScalarTypeSet;
+export type ScalarTypeName = keyof ScalarTypeSet;
 
-const mapKeyTypeSet = {
+export const mapKeyTypeSet = {
   UInt: "UInt",
   UInt8: "UInt8",
   UInt16: "UInt16",
@@ -168,6 +166,6 @@ const mapKeyTypeSet = {
   Int32: "Int32",
   String: "String",
 };
-type MapKeyTypeSet = typeof mapKeyTypeSet;
+export type MapKeyTypeSet = typeof mapKeyTypeSet;
 
-type MapKeyTypeName = keyof MapKeyTypeSet;
+export type MapKeyTypeName = keyof MapKeyTypeSet;
