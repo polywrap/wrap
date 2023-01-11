@@ -89,6 +89,23 @@ const abi: Abi = {
             scalar: "UInt8"
           },
           required: false
+        },
+        {
+          kind: "Property",
+          name: "importedObj",
+          type: {
+            kind: "Ref",
+            ref_kind: "Object",
+            ref_name: "Namespace_Object"
+
+            /*
+            kind: "ImpotRef",
+            ref_abi: 0,
+            ref_kind: "Object",
+            ref_name: "Object"
+            */
+          },
+          required: true
         }
       ]
     }

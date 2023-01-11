@@ -1,10 +1,5 @@
 /// ABIs
 
-export interface Abi extends AbiDefs {
-  version: "0.2";
-  imports?: ImportedAbi[];
-}
-
 export interface AbiDefs {
   functions?: FunctionDef[];
   objects?: ObjectDef[];
@@ -12,9 +7,16 @@ export interface AbiDefs {
   env?: EnvDef;
 }
 
+export interface Abi extends AbiDefs {
+  version: "0.2";
+  imports?: ImportedAbi[];
+}
+
 export interface ImportedAbi extends AbiDefs {
-  namespace: string;
+  id: string;
   uri: string;
+  namespace: string;
+  imports?: ImportedAbi[];
 }
 
 /// Definitions (user-defined)
@@ -91,13 +93,15 @@ export type AnyType =
   | ScalarType
   | ArrayType
   | MapType
-  | RefType;
+  | RefType
+  | ImportRefType;
 
 export type TypeKind =
   | "Scalar"
   | "Array"
   | "Map"
-  | "Ref";
+  | "Ref"
+  | "ImportRef";
 
 export interface Type {
   kind: TypeKind;
@@ -123,6 +127,13 @@ export interface MapType extends Type {
 
 export interface RefType extends Type {
   kind: "Ref";
+  ref_kind: UniqueDefKind;
+  ref_name: string;
+}
+
+export interface ImportRefType extends Type {
+  kind: "ImportRef";
+  import_id: string;
   ref_kind: UniqueDefKind;
   ref_name: string;
 }

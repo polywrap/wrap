@@ -1,3 +1,5 @@
+#import { Object } into Namespace from "uri"
+
 type Module {
   # some comment
   func1(
@@ -16,4 +18,5 @@ type Custom {
 
 type Nested {
   prop: UInt8
+  importedObj: Namespace_Object!
 }

@@ -6,3 +6,8 @@ TODO:
 - JSON-schema
 - Transpile to TS
 - compile the ts example files to make sure they implement the ABI well
+- research merkle-root hashes for root-definitions (function, object, enum, etc?) to help with validation execution time
+  - "does interface A implement interface B?"
+- document the choices around imports & how import "routing" works for importing the imports of your import. (ex: "1.2.3")
+
+- document future plan: "runtime abi" is a compressed hyper optimized ABI for small storage & download, and fast runtime traversal & introspection (hashes, etc)
