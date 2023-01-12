@@ -1,0 +1,6 @@
+#import { AnotherFoo } into Lorem from "wrap://ens/lorem.eth"
+#import { YetFoo } from "wrap://ens/lorem.eth"
+
+type SomeFoo {
+  prop: Lorem_AnotherFoo!
+}

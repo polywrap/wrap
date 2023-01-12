@@ -1,0 +1,5 @@
+#import { TypeBar } from "wrap://ens/lorem.eth"
+
+type SomeBar {
+  prop: TypeBar!
+}
