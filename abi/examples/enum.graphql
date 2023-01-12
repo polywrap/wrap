@@ -1,1 +1,8 @@
-# TODO
+enum Foo {
+  BAR,
+  BAZ
+}
+
+type SomeObject {
+  prop: Foo!
+}
