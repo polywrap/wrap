@@ -1,0 +1,5 @@
+#import { DataType } into Lib1 from "lib1"
+
+type Obj1 {
+  data: Lib1_DataType!
+}

@@ -1,0 +1,7 @@
+#import { Obj1 } from "bar"
+#import { Obj2 } from "foo"
+
+type UserObj {
+  obj1: Obj1!
+  obj2: Obj2!
+}
