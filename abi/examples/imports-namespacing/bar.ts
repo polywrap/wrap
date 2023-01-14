@@ -42,5 +42,20 @@ const abi: Abi = {
         }
       ]
     },
+    {
+      kind: "Object",
+      name: "Baz",
+      props: [
+        {
+          kind: "Property",
+          name: "data2",
+          required: true,
+          type: {
+            kind: "Scalar",
+            scalar: "String"
+          }
+        }
+      ]
+    }
   ]
 }

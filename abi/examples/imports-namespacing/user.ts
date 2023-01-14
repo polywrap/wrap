@@ -29,23 +29,39 @@ const abi: Abi = {
           }]
         }
       ],
-      objects: [{
-        kind: "Object",
-        name: "Obj1",
-        props: [
-          {
-            kind: "Property",
-            name: "data",
-            required: true,
-            type: {
-              kind: "ImportRef",
-              import_id: "0",
-              ref_kind: "Object",
-              ref_name: "DataType"
+      objects: [
+        {
+          kind: "Object",
+          name: "Baz",
+          props: [
+            {
+              kind: "Property",
+              name: "data2",
+              required: true,
+              type: {
+                kind: "Scalar",
+                scalar: "String"
+              }
             }
-          }
-        ]
-      }]
+          ]
+        },
+        {
+          kind: "Object",
+          name: "Obj1",
+          props: [
+            {
+              kind: "Property",
+              name: "data",
+              required: true,
+              type: {
+                kind: "ImportRef",
+                import_id: "0",
+                ref_kind: "Object",
+                ref_name: "DataType"
+              }
+            }
+          ]
+        }]
     },
     {
       id: "1",

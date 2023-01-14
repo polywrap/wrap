@@ -1,5 +1,10 @@
 #import { DataType } into Lib1 from "lib1"
 
+type Baz {
+  prop: String!
+}
+
 type Obj1 {
   data: Lib1_DataType!
+  data2: Baz!
 }
