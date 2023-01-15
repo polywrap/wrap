@@ -5,34 +5,33 @@ const abi: Abi = {
   objects: [
     {
       kind: "Object",
-      name: "TypeBar",
-      props: [
-        {
-          kind: "Property",
-          name: "prop",
-          required: false,
-          type: {
-            kind: "Scalar",
-            scalar: "Int"
-          }
-        }
-      ]
-    },
-    {
-      kind: "Object",
-      name: "SomeBar",
+      name: "DataType",
       props: [
         {
           kind: "Property",
           name: "prop",
           required: true,
           type: {
-            kind: "Ref",
-            ref_kind: "Object",
-            ref_name: "TypeBar"
+            kind: "Scalar",
+            scalar: "UInt32"
           }
         }
       ]
-    }
+    },
+    {
+      kind: "Object",
+      name: "SecondType",
+      props: [
+        {
+          kind: "Property",
+          name: "prop",
+          required: true,
+          type: {
+            kind: "Scalar",
+            scalar: "String"
+          }
+        }
+      ]
+    },
   ]
 }

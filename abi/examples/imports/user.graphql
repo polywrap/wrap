@@ -1,4 +1,4 @@
-#import { Obj1 } into Bar from "bar"
+#import { Obj1, Lib1_SecondType } into Bar from "bar"
 #import { Obj2 } into Foo from "foo"
 
 type UserObj {

@@ -26,8 +26,23 @@ const abi: Abi = {
                 }
               }
             ]
+          },
+          {
+            kind: "Object",
+            name: "SecondType",
+            props: [
+              {
+                kind: "Property",
+                name: "prop",
+                required: true,
+                type: {
+                  kind: "Scalar",
+                  scalar: "String"
+                }
+              }
+            ]
           }]
-        }
+        },
       ],
       objects: [
         {

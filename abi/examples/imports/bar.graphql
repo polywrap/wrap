@@ -1,4 +1,4 @@
-#import { DataType } into Lib1 from "lib1"
+#import { DataType, SecondType } into Lib1 from "lib1"
 
 type Baz {
   prop: String!

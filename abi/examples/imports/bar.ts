@@ -4,9 +4,9 @@ const abi: Abi = {
   version: "0.2",
   imports: [
     {
-      id: "foo",
-      namespace: "foo",
-      uri: "foo",
+      uri: "lib1",
+      id: "0",
+      namespace: "Lib1",
       objects: [{
         kind: "Object",
         name: "DataType",
@@ -21,15 +21,10 @@ const abi: Abi = {
             }
           }
         ]
-      }]
-    },
-    {
-      id: "bar",
-      namespace: "bar",
-      uri: "bar",
-      objects: [{
+      },
+      {
         kind: "Object",
-        name: "DataType",
+        name: "SecondType",
         props: [
           {
             kind: "Property",
@@ -37,7 +32,7 @@ const abi: Abi = {
             required: true,
             type: {
               kind: "Scalar",
-              scalar: "UInt32"
+              scalar: "String"
             }
           }
         ]
@@ -54,7 +49,8 @@ const abi: Abi = {
           name: "data",
           required: true,
           type: {
-            kind: "Ref",
+            kind: "ImportRef",
+            import_id: "0",
             ref_kind: "Object",
             ref_name: "DataType"
           }
@@ -63,29 +59,18 @@ const abi: Abi = {
     },
     {
       kind: "Object",
-      name: "UserObj",
+      name: "Baz",
       props: [
         {
           kind: "Property",
-          name: "obj1",
+          name: "data2",
           required: true,
           type: {
-            kind: "Ref",
-            ref_kind: "Object",
-            ref_name: "Obj1"
-          }
-        },
-        {
-          kind: "Property",
-          name: "obj2",
-          required: true,
-          type: {
-            kind: "Ref",
-            ref_kind: "Object",
-            ref_name: "Obj2"
+            kind: "Scalar",
+            scalar: "String"
           }
         }
       ]
-    },
+    }
   ]
 }

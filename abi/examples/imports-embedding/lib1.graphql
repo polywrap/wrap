@@ -1,3 +1,0 @@
-type DataType {
-  prop: UInt32!
-}
