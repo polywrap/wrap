@@ -1,8 +1,0 @@
-#import { Lorem_AnotherFoo, YetFoo } into ExternalA from "wrap://ens/externalA.eth"
-#import { TypeBar } from "wrap://ens/externalB.eth"
-
-type Baz {
-  propA: ExternalA_Lorem_AnotherFoo!
-  propB: ExternalA_YetFoo!
-  propC: TypeBar!
-}
