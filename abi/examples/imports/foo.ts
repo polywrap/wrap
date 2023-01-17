@@ -5,6 +5,7 @@ const abi: Abi = {
   imports: [
     {
       uri: "lib2",
+      type: "wasm",
       id: "0",
       namespace: "Lib2",
       objects: [{

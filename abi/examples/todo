@@ -1,13 +1,23 @@
 TODO:
-- referencing imports
-- implemented interfaces
-- parity with old ABI
-- notes on things removed from old ABI (capabilities)
+x add wrapper type to imports
+x parity with old ABI
+- use maps for unique def kinds
+- use enums instead of strings
 - JSON-schema
 - Transpile to TS
+- notes on things removed from old ABI (capabilities)
 - compile the ts example files to make sure they implement the ABI well
+- document the choices around imports & how import "routing" works for importing the imports of your import. (ex: "1.2.3")
+- migration script from 0.1 to 0.2?
+
+Test-Cases:
+- referencing imports
+- implemented interfaces
+
+After Init PR:
+- fix complex types
+
+Future:
+- "runtime abi" is a compressed hyper optimized ABI for small storage & download, and fast runtime traversal & introspection (hashes, etc)
 - research merkle-root hashes for root-definitions (function, object, enum, etc?) to help with validation execution time
   - "does interface A implement interface B?"
-- document the choices around imports & how import "routing" works for importing the imports of your import. (ex: "1.2.3")
-
-- document future plan: "runtime abi" is a compressed hyper optimized ABI for small storage & download, and fast runtime traversal & introspection (hashes, etc)

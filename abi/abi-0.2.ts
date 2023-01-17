@@ -12,9 +12,14 @@ export interface Abi extends AbiDefs {
   imports?: ImportedAbi[];
 }
 
+export type ImportAbiType =
+  | "wasm"
+  | "interface";
+
 export interface ImportedAbi extends AbiDefs {
   id: string;
   uri: string;
+  type: ImportAbiType;
   namespace: string;
   imports?: ImportedAbi[];
 }

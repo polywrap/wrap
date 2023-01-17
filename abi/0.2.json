@@ -1,0 +1,69 @@
+{
+  "id": "Abi",
+  "type": "object",
+  "definitions": {
+    "uniqueDefKind": {
+      "type": "string",
+      "enum": [
+        "Function",
+        "Object",
+        "Enum",
+        "Env"
+      ]
+    },
+    "typeKind": {
+      "type": "string",
+      "enum": [
+        "Scalar",
+        "Array",
+        "Map",
+        "Ref",
+        "ImportRef"
+      ]
+    },
+    "scalarType": {
+      "type": "string",
+      "enum": [
+        "UInt",
+        "UInt8",
+        "UInt16",
+        "UInt32",
+        "Int",
+        "Int8",
+        "Int16",
+        "Int32",
+        "String",
+        "Boolean",
+        "Bytes",
+        "BigInt",
+        "BigNumber",
+        "JSON"
+      ]
+    },
+    "mapKeyType": {
+      "type": "string",
+      "enum": [
+        "UInt",
+        "UInt8",
+        "UInt16",
+        "UInt32",
+        "Int",
+        "Int8",
+        "Int16",
+        "Int32",
+        "String"
+      ]
+    },
+    "optionalType": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "type": {
+          "$ref": "#/definitions/anyType"
+        }
+      }
+    },
+  }
+}

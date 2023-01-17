@@ -7,9 +7,11 @@ const abi: Abi = {
       id: "0",
       namespace: "Bar",
       uri: "bar",
+      type: "wasm",
       imports: [
         {
           uri: "lib1",
+          type: "wasm",
           id: "0",
           namespace: "Lib1",
           objects: [{
@@ -82,9 +84,11 @@ const abi: Abi = {
       id: "1",
       namespace: "Foo",
       uri: "foo",
+      type: "wasm",
       imports: [
         {
           uri: "lib2",
+          type: "wasm",
           id: "0",
           namespace: "Lib2",
           objects: [{

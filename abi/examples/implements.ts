@@ -6,6 +6,7 @@ const abi: Abi = {
     {
       namespace: "External",
       uri: "wrap://ens/external.eth",
+      type: "wasm",
       id: "1",
       functions: [
         {
