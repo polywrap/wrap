@@ -1,9 +1,9 @@
 /// ABIs
 
 export interface AbiDefs {
-  functions?: FunctionDef[];
-  objects?: ObjectDef[];
-  enums?: EnumDef[];
+  functions?: Record<string, FunctionDef>;
+  objects?: Record<string, ObjectDef>;
+  enums?: Record<string, EnumDef>;
   env?: EnvDef;
 }
 
@@ -55,41 +55,39 @@ export interface NamedDef extends Def {
   name: string;
 }
 
-export interface InlinedTypeDef extends Def, OptionalType { }
+export interface TypeDef extends Def, OptionalType { }
 
-export interface NamedTypeDef extends NamedDef, InlinedTypeDef { }
-
-export interface FunctionDef extends NamedDef {
+export interface FunctionDef extends Def {
   kind: "Function";
-  args: ArgumentDef[];
+  args: Record<string, ArgumentDef>;
   result: ResultDef;
 }
 
-export interface ArgumentDef extends NamedTypeDef {
+export interface ArgumentDef extends TypeDef {
   kind: "Argument";
 }
 
-export interface ResultDef extends InlinedTypeDef {
+export interface ResultDef extends TypeDef {
   kind: "Result";
 }
 
-export interface ObjectDef extends NamedDef {
+export interface ObjectDef extends Def {
   kind: "Object";
-  props: PropertyDef[];
+  props: Record<string, PropertyDef>;
 }
 
-export interface PropertyDef extends NamedTypeDef {
+export interface PropertyDef extends TypeDef {
   kind: "Property";
 }
 
-export interface EnumDef extends NamedDef {
+export interface EnumDef extends Def {
   kind: "Enum";
   constants: string[];
 }
 
 export interface EnvDef extends Def {
   kind: "Env";
-  props: PropertyDef[];
+  props: Record<string, PropertyDef>;
 }
 
 /// Types (built-ins)
