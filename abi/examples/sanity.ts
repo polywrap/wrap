@@ -2,21 +2,19 @@ import { Abi } from "../abi-0.2";
 
 const abi: Abi = {
   version: "0.2",
-  functions: [
-    {
+  functions: {
+    func1: {
       kind: "Function",
-      name: "func1",
-      args: [
-        {
+      args: {
+        arg: {
           kind: "Argument",
-          name: "arg",
           type: {
             kind: "Scalar",
             scalar: "Bytes"
           },
           required: true
         }
-      ],
+      },
       result: {
         kind: "Result",
         type: {
@@ -26,13 +24,11 @@ const abi: Abi = {
         required: true
       }
     },
-    {
+    func2: {
       kind: "Function",
-      name: "func2",
-      args: [
-        {
+      args: {
+        "custom": {
           kind: "Argument",
-          name: "custom",
           type: {
             kind: "Ref",
             ref_name: "Custom",
@@ -40,7 +36,7 @@ const abi: Abi = {
           },
           required: true
         }
-      ],
+      },
       result: {
         kind: "Result",
         type: {
@@ -50,24 +46,21 @@ const abi: Abi = {
         required: false
       }
     }
-  ],
-  objects: [
-    {
+  },
+  objects: {
+    Custom: {
       kind: "Object",
-      name: "Custom",
-      props: [
-        {
+      props: {
+        prop1: {
           kind: "Property",
-          name: "prop1",
           type: {
             kind: "Scalar",
             scalar: "String"
           },
           required: true
         },
-        {
+        nested: {
           kind: "Property",
-          name: "nested",
           type: {
             kind: "Ref",
             ref_name: "Nested",
@@ -75,39 +68,29 @@ const abi: Abi = {
           },
           required: false
         }
-      ]
+      }
     },
-    {
+    Nested: {
       kind: "Object",
-      name: "Nested",
-      props: [
-        {
+      props: {
+        prop: {
           kind: "Property",
-          name: "prop",
           type: {
             kind: "Scalar",
             scalar: "UInt8"
           },
           required: false
         },
-        {
+        importedObj: {
           kind: "Property",
-          name: "importedObj",
           type: {
             kind: "Ref",
             ref_kind: "Object",
             ref_name: "Namespace_Object"
-
-            /*
-            kind: "ImpotRef",
-            ref_abi: 0,
-            ref_kind: "Object",
-            ref_name: "Object"
-            */
           },
           required: true
         }
-      ]
+      }
     }
-  ]
+  }
 };
