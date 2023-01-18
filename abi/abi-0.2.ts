@@ -26,15 +26,6 @@ export interface ImportedAbi extends AbiDefs {
 
 /// Definitions (user-defined)
 
-export type AnyDef =
-  | FunctionDef
-  | ArgumentDef
-  | ResultDef
-  | ObjectDef
-  | PropertyDef
-  | EnumDef
-  | EnvDef;
-
 export type UniqueDefKind =
   | "Function"
   | "Object"

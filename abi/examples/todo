@@ -3,7 +3,7 @@ x add wrapper type to imports
 x parity with old ABI
 x use maps for unique def kinds
 - use enums instead of strings
-- JSON-schema
+x JSON-schema
 - Transpile to TS
 x notes on things removed from old ABI (capabilities)
 x compile the ts example files to make sure they implement the ABI well
