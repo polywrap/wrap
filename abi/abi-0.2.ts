@@ -1,9 +1,9 @@
 /// ABIs
 
 export interface AbiDefs {
-  functions?: Map<string, FunctionDef>;
-  objects?: Map<string, ObjectDef>;
-  enums?: Map<string, EnumDef>;
+  functions?: Record<string, FunctionDef>;
+  objects?: Record<string, ObjectDef>;
+  enums?: Record<string, EnumDef>;
   env?: EnvDef;
 }
 
@@ -59,7 +59,7 @@ export interface TypeDef extends Def, OptionalType { }
 
 export interface FunctionDef extends Def {
   kind: "Function";
-  args: Map<string, ArgumentDef>;
+  args: Record<string, ArgumentDef>;
   result: ResultDef;
 }
 
@@ -73,7 +73,7 @@ export interface ResultDef extends TypeDef {
 
 export interface ObjectDef extends Def {
   kind: "Object";
-  props: Map<string, PropertyDef>;
+  props: Record<string, PropertyDef>;
 }
 
 export interface PropertyDef extends TypeDef {
@@ -87,7 +87,7 @@ export interface EnumDef extends Def {
 
 export interface EnvDef extends Def {
   kind: "Env";
-  props: Map<string, PropertyDef>;
+  props: Record<string, PropertyDef>;
 }
 
 /// Types (built-ins)
