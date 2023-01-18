@@ -148,7 +148,7 @@ const abi: Abi = {
           name: "obj2",
           required: true,
           type: {
-            import_id: "1",
+            import_id: "0.0",
             kind: "ImportRef",
             ref_kind: "Object",
             ref_name: "Obj2"

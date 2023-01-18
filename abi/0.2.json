@@ -64,6 +64,6 @@
           "$ref": "#/definitions/anyType"
         }
       }
-    },
+    }
   }
 }
