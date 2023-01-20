@@ -4,7 +4,6 @@ export interface AbiDefs {
   functions?: FunctionDef[];
   objects?: ObjectDef[];
   enums?: EnumDef[];
-  env?: EnvDef;
 }
 
 export interface Abi extends AbiDefs {
@@ -30,7 +29,6 @@ export type UniqueDefKind =
   | "Function"
   | "Object"
   | "Enum"
-  | "Env";
 
 export type DefKind =
   | UniqueDefKind
@@ -76,11 +74,6 @@ export interface PropertyDef extends NamedTypeDef {
 export interface EnumDef extends NamedDef {
   kind: "Enum";
   constants: string[];
-}
-
-export interface EnvDef extends Def {
-  kind: "Env";
-  props: PropertyDef[];
 }
 
 /// Types (built-ins)
