@@ -1,0 +1,105 @@
+openapi: 3.0.0
+info:
+  description: Wrap Container APIs
+  version: "0.0.1"
+  title: Wrap Containers HTTP API
+paths:
+  /invoke:
+    post:
+      summary: Invoke a wrapper
+      description: Invoke a wrapper given a uri, method and args
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvokeOptions'
+      responses:
+        '200':
+          description: invocation execution successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvokeResult'
+        '400':
+          description: bad input parameter
+  /validate:
+    post:
+      summary: Validate a wrapper
+      description: Validate if a wrapper is compatible with client
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateOptions'
+      responses:
+        '200':
+          description: validation check successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateResult'
+        '400':
+          description: bad input parameter
+  /versions/{v}:
+    get:
+      summary: Get version of client or wrap
+      parameters:
+        - name: "v"
+          in: "path"
+          description: "v=client or v=wrap"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: 'version of client or wrap'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Version'
+                
+
+components:
+  schemas:
+    InvokeOptions:
+      type: object
+      required:
+        - method
+        - uri
+      properties:
+        method:
+          type: string
+          example: method_name
+        uri:
+          type: string
+          example: ens/wrapper.eth
+        args:
+          type: object
+    InvokeResult:
+      type: object
+      properties:
+        data:
+          type: object
+        error:
+          type: object
+    ValidateOptions:
+      type: object
+      properties:
+        abi:
+          type: boolean
+          description: make sure the ABI from 1st level dependencies are available
+        recursive:
+          type: boolean
+          description: check all uris and make sure it can resolve them
+    ValidateResult:
+      type: object
+      properties:
+        valid:
+          type: boolean
+    Version:
+      type: object
+      properties:
+        client:
+          type: string
+        wrap:
+          type: string
