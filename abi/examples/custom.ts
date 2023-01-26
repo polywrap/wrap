@@ -1,7 +1,13 @@
 const abi = {
   aliases: [{
     name: "Numeric",
-    types: ["UInt", "Int"]
+    types: [{
+      kind: "scalar",
+      name: "UInt",
+    }, {
+      kind: "scalar",
+      name: "Int",
+    }]
   }],
   customs: [
     {

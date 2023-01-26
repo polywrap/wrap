@@ -1,6 +1,8 @@
 /// ABIs
 
 export interface AbiDefs {
+  alias?: AliasDef[];
+  customTypes?: CustomDef[];
   functions?: FunctionDef[];
   objects?: ObjectDef[];
   enums?: EnumDef[];
@@ -32,6 +34,9 @@ export type UniqueDefKind =
 
 export type DefKind =
   | UniqueDefKind
+  | "Alias"
+  | "Custom"
+  | "CustomTemplate"
   | "Argument"
   | "Result"
   | "Property";
@@ -76,6 +81,25 @@ export interface EnumDef extends NamedDef {
   constants: string[];
 }
 
+export interface AliasDef extends NamedDef {
+  kind: "Alias";
+  name: string;
+  members: (BaseUnion | ScalarType)[]
+}
+
+export interface CustomTemplateDef extends NamedDef {
+  kind: "CustomTemplate"
+  id: string;
+  name: string;
+  types: (BaseUnion | CompoundUnion | AliasRef | ScalarType)[];
+}
+
+export interface CustomDef extends NamedDef {
+  kind: "Custom"
+  template_id: string;
+  types: (ScalarType | ArrayType)[]
+}
+
 /// Types (built-ins)
 
 export type AnyType =
@@ -86,6 +110,7 @@ export type AnyType =
   | ImportRefType;
 
 export type TypeKind =
+  | "AliasRef"
   | "Scalar"
   | "Array"
   | "Map"
@@ -125,6 +150,11 @@ export interface ImportRefType extends Type {
   import_id: string;
   ref_kind: UniqueDefKind;
   ref_name: string;
+}
+
+export interface AliasRef extends Type {
+  kind: "AliasRef";
+  name: string;
 }
 
 export interface OptionalType {
@@ -169,3 +199,17 @@ export const mapKeyTypeSet = {
 export type MapKeyTypeSet = typeof mapKeyTypeSet;
 
 export type MapKeyTypeName = keyof MapKeyTypeSet;
+
+export interface TypeUnion {
+  kind: "BaseUnion" | "CompoundUnion" | "Alias";
+}
+
+export interface BaseUnion extends TypeUnion {
+  kind: "BaseUnion";
+  members: (BaseUnion | ScalarType | AliasRef)[];
+}
+
+export interface CompoundUnion extends TypeUnion {
+  kind: "CompoundUnion";
+  members: (BaseUnion | ArrayType | AliasRef | CompoundUnion)[] | (BaseUnion | ScalarType | AliasRef)[];
+}
