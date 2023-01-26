@@ -1,0 +1,8 @@
+scalar Numeric @alias(types: "[UInt, Int]")
+scalar Scalar @alias(types: "[String, Boolean, Bytes, Numeric, UInt8, UInt16, UInt32, Int8, Int16, Int32]")
+
+scalar MapOfArrays @custom(id: 1, types: "[Numeric, [[String, Boolean], Array<String>]]")
+
+type Module {
+  foo(s: String!): MapOfArrays! @annotate(type: "MapOfArrays<String, Array<String>>")
+}
