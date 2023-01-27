@@ -1,8 +1,8 @@
 /// ABIs
 
 export interface AbiDefs {
-  alias?: AliasDef[];
-  customTypes?: CustomDef[];
+  aliases?: AliasDef[];
+  templates?: CustomTemplateDef[];
   functions?: FunctionDef[];
   objects?: ObjectDef[];
   enums?: EnumDef[];
@@ -35,7 +35,6 @@ export type UniqueDefKind =
 export type DefKind =
   | UniqueDefKind
   | "Alias"
-  | "Custom"
   | "CustomTemplate"
   | "Argument"
   | "Result"
@@ -84,7 +83,7 @@ export interface EnumDef extends NamedDef {
 export interface AliasDef extends NamedDef {
   kind: "Alias";
   name: string;
-  members: (BaseUnion | ScalarType)[]
+  types: (BaseUnion | ScalarType)[]
 }
 
 export interface CustomTemplateDef extends NamedDef {
@@ -94,18 +93,12 @@ export interface CustomTemplateDef extends NamedDef {
   types: (BaseUnion | CompoundUnion | AliasRef | ScalarType)[];
 }
 
-export interface CustomDef extends NamedDef {
-  kind: "Custom"
-  template_id: string;
-  types: (ScalarType | ArrayType)[]
-}
-
 /// Types (built-ins)
 
 export type AnyType =
   | ScalarType
   | ArrayType
-  | MapType
+  | CustomType
   | RefType
   | ImportRefType;
 
@@ -113,12 +106,16 @@ export type TypeKind =
   | "AliasRef"
   | "Scalar"
   | "Array"
-  | "Map"
+  | "Custom"
   | "Ref"
   | "ImportRef";
 
 export interface Type {
   kind: TypeKind;
+}
+
+export interface CustomTypeMember extends OptionalType {
+  type: CustomTypeMemberTypes
 }
 
 export interface ScalarType<
@@ -133,15 +130,15 @@ export interface ArrayType extends Type {
   item: OptionalType;
 }
 
-export interface MapType extends Type {
-  kind: "Map";
-  key: ScalarType<MapKeyTypeName>;
-  value: OptionalType;
+export interface CustomType extends Type {
+  kind: "Custom"
+  template_id: string;
+  types: CustomTypeMember[]
 }
 
-export interface RefType extends Type {
+export interface RefType<T extends UniqueDefKind = UniqueDefKind> extends Type {
   kind: "Ref";
-  ref_kind: UniqueDefKind;
+  ref_kind: T;
   ref_name: string;
 }
 
@@ -176,29 +173,21 @@ export const scalarTypeSet = {
   String: "String",
   Boolean: "Boolean",
   Bytes: "Bytes",
-  // TODO: remove complex types
-  BigInt: "BigInt",
-  BigNumber: "BigNumber",
-  JSON: "JSON",
 };
 export type ScalarTypeSet = typeof scalarTypeSet;
-
 export type ScalarTypeName = keyof ScalarTypeSet;
 
-export const mapKeyTypeSet = {
-  UInt: "UInt",
-  UInt8: "UInt8",
-  UInt16: "UInt16",
-  UInt32: "UInt32",
-  Int: "Int",
-  Int8: "Int8",
-  Int16: "Int16",
-  Int32: "Int32",
-  String: "String",
+export const anyTypeSet = {
+  ...scalarTypeSet,
+  Array: "Array<Any>",
+  Enum: "Enum",
+  Object: "Object",
 };
-export type MapKeyTypeSet = typeof mapKeyTypeSet;
 
-export type MapKeyTypeName = keyof MapKeyTypeSet;
+export type AnyTypeSet = typeof anyTypeSet;
+export type AnyTypeName = keyof AnyTypeSet;
+
+type CustomTypeMemberTypes = ArrayType | RefType<"Enum"> | RefType<"Object"> | ScalarType;
 
 export interface TypeUnion {
   kind: "BaseUnion" | "CompoundUnion" | "Alias";
@@ -211,5 +200,5 @@ export interface BaseUnion extends TypeUnion {
 
 export interface CompoundUnion extends TypeUnion {
   kind: "CompoundUnion";
-  members: (BaseUnion | ArrayType | AliasRef | CompoundUnion)[] | (BaseUnion | ScalarType | AliasRef)[];
+  members: (Exclude<CustomTypeMemberTypes, "ScalarType"> | BaseUnion | AliasRef | CompoundUnion)[] | (CustomTypeMemberTypes | AliasRef)[];
 }
