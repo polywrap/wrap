@@ -1,3 +1,6 @@
+scalar Numeric @alias(types: "[UInt, Int]")
+scalar Counter @custom(id: 1, types: "[Numeric, Numeric]")
+
 type DataType {
   prop: UInt32!
 }

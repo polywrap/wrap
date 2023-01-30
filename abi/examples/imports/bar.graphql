@@ -1,4 +1,4 @@
-#import { DataType, SecondType } into Lib1 from "lib1"
+#import { DataType, SecondType, Counter } into Lib1 from "lib1"
 
 type Baz {
   prop: String!
@@ -7,4 +7,5 @@ type Baz {
 type Obj1 {
   data: Lib1_DataType!
   data2: Baz!
+  data3: Lib1_Counter! @annotate(type: "Lib1_Counter<UInt!, Int!>")
 }

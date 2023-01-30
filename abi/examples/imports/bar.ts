@@ -37,8 +37,41 @@ const abi: Abi = {
             }
           }
         ]
-      }]
-    }
+      }],
+      aliases: [
+        {
+          kind: "Alias",
+          name: "Numeric",
+          types: [
+            {
+              kind: "Scalar",
+              scalar: "UInt",
+            },
+            {
+              kind: "Scalar",
+              scalar: "Int",
+            }
+          ]
+        }
+      ],
+      templates: [
+        {
+          kind: "CustomTemplate",
+          id: "1",
+          name: "Counter",
+          types: [
+            {
+              kind: "AliasRef",
+              name: "Numeric",
+            },
+            {
+              kind: "AliasRef",
+              name: "Numeric",
+            }
+          ]
+        }
+      ],
+    },
   ],
   objects: [
     {
@@ -69,6 +102,37 @@ const abi: Abi = {
           type: {
             kind: "Scalar",
             scalar: "String"
+          }
+        }
+      ]
+    },
+    {
+      kind: "Object",
+      name: "Baz",
+      props: [
+        {
+          kind: "Property",
+          name: "data3",
+          required: true,
+          type: {
+            kind: "Custom",
+            template_id: "1",
+            types: [
+              {
+                required: true,
+                type: {
+                  kind: "Scalar",
+                  scalar: "UInt"
+                }
+              },
+              {
+                required: true,
+                type: {
+                  kind: "Scalar",
+                  scalar: "Int"
+                }
+              }
+            ]
           }
         }
       ]
