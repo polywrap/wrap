@@ -1,28 +1,26 @@
 #Polywrap Maintained:
 
-scalar Scalar @alias(types: "[String, Boolean, Bytes, Numeric, UInt8, UInt16, UInt32, Int8, Int16, Int32]")
-scalar Any @alias(types: "[Scalar, Array<Any>, Enum, Object]")
+scalar Numeric @alias(type: "UInt | UInt8 | UInt16 | UInt32 | Int | Int8 | Int16 | Int32")
+scalar Scalar @alias(type: "String | Boolean | Bytes | Numeric")
+scalar MapKey @alias(types: "Numeric | String")
 
-scalar Map @custom(id: 2, types: "[MapKey, Any]")
-scalar BigInt @custom(id: 3, types: "[String]")
-scalar BigNumber @custom(id: 4, types: "[String]")
-scalar JSON @custom(id: 5, types: "[String]")
+scalar Map @extension(data: "Array<{ key: MapKey, value: Any }>", template: "<MapKey, Any>")
+scalar BigInt @extension(data: "String", template: "<String>")
+scalar BigNumber @extension(data: "String", template: "<String>")
+scalar JSON @extension(data: "String", template: "<String>")
 
 #Non Polywrap Maintained:
 
-scalar Numeric @alias(types: "[UInt, Int]")
-scalar MapKey @alias(types: "[UInt, UInt8, UInt16, UInt32, Int, Int8, Int16, Int32, String]")
-
-scalar MapOfArrays @custom(id: 1, types: "[Numeric, [[String, Boolean], Array<String>]]")
-
+scalar MapOfArraysValue @alias(types: "String | Boolean | Array<String>")
+scalar MapOfArrays @extension(data: "Array<{ key: Numeric, value: MapOfArraysValue }>", template: "<Numeric, MapOfArraysValue>")
 
 type SomeObject {
   baz: String!
 }
 
 type Module {
-  foo(s: String!): MapOfArrays! @annotate(type: "MapOfArrays<String, Array<String>>")
+  foo(s: String!): MapOfArrays! @annotate(type: "MapOfArrays<Int, [String]>")
   bar(s: String!): Map! @annotate(type: "Map<String!, SomeObject!>")
   #When a custom type takes a single generic, it's ommited from the type annotation and always required
-  fez(s: String!): JSON! @annotate(type: "JSON")
+  fez(s: String!): JSON! @annotate(type: "JSON<String>")
 }
