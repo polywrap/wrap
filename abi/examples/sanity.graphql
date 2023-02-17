@@ -1,0 +1,18 @@
+type Module {
+  func1(
+    arg: Bytes!
+  ): UInt32!
+
+  func2(
+    custom: Custom!
+  ): Int32
+}
+
+type Custom {
+  prop1: String!
+  nested: Nested
+}
+
+type Nested {
+  prop: UInt8
+}

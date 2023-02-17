@@ -1,0 +1,7 @@
+type CustomType {
+  uArray: [UInt!]!
+  uOptArray: [UInt!]
+  uOptArrayOptArray: [[UInt32]]!
+  uArrayOptArrayArray: [[[UInt32!]!]]!
+  crazyArray: [[[[UInt32!]]!]]
+}

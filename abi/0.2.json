@@ -1,0 +1,313 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "AnyType": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ScalarType"
+        },
+        {
+          "$ref": "#/definitions/ArrayType"
+        },
+        {
+          "$ref": "#/definitions/MapType"
+        },
+        {
+          "$ref": "#/definitions/RefType"
+        },
+        {
+          "$ref": "#/definitions/ImportRefType"
+        }
+      ]
+    },
+    "ArgumentDef": {
+      "properties": {
+        "kind": {
+          "enum": [
+            "Argument"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "type": {
+          "$ref": "#/definitions/AnyType"
+        }
+      },
+      "type": "object"
+    },
+    "ArrayType": {
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/OptionalType"
+        },
+        "kind": {
+          "enum": [
+            "Array"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "EnumDef": {
+      "properties": {
+        "constants": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "enum": [
+            "Enum"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "FunctionDef": {
+      "properties": {
+        "args": {
+          "items": {
+            "$ref": "#/definitions/ArgumentDef"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "enum": [
+            "Function"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "result": {
+          "$ref": "#/definitions/ResultDef"
+        }
+      },
+      "type": "object"
+    },
+    "ImportRefType": {
+      "properties": {
+        "import_id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "ImportRef"
+          ],
+          "type": "string"
+        },
+        "ref_kind": {
+          "$ref": "#/definitions/UniqueDefKind"
+        },
+        "ref_name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MapType": {
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/MapKeyScalarType"
+        },
+        "kind": {
+          "enum": [
+            "Map"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/definitions/OptionalType"
+        }
+      },
+      "type": "object"
+    },
+    "ObjectDef": {
+      "properties": {
+        "kind": {
+          "enum": [
+            "Object"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "props": {
+          "items": {
+            "$ref": "#/definitions/PropertyDef"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "OptionalType": {
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "type": {
+          "$ref": "#/definitions/AnyType"
+        }
+      },
+      "type": "object"
+    },
+    "PropertyDef": {
+      "properties": {
+        "kind": {
+          "enum": [
+            "Property"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "type": {
+          "$ref": "#/definitions/AnyType"
+        }
+      },
+      "type": "object"
+    },
+    "RefType": {
+      "properties": {
+        "kind": {
+          "enum": [
+            "Ref"
+          ],
+          "type": "string"
+        },
+        "ref_kind": {
+          "$ref": "#/definitions/UniqueDefKind"
+        },
+        "ref_name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResultDef": {
+      "properties": {
+        "kind": {
+          "enum": [
+            "Result"
+          ],
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "type": {
+          "$ref": "#/definitions/AnyType"
+        }
+      },
+      "type": "object"
+    },
+    "ScalarTypeEnum": {
+      "enum": [
+        "BigInt",
+        "BigNumber",
+        "Boolean",
+        "Bytes",
+        "Int",
+        "Int16",
+        "Int32",
+        "Int8",
+        "JSON",
+        "String",
+        "UInt",
+        "UInt16",
+        "UInt32",
+        "UInt8"
+      ],
+      "type": "string"
+    },
+    "ScalarTypeMapKeyEnum": {
+      "enum": [
+        "Int",
+        "Int16",
+        "Int32",
+        "Int8",
+        "String",
+        "UInt",
+        "UInt16",
+        "UInt32",
+        "UInt8"
+      ],
+      "type": "string"
+    },
+    "MapKeyScalarType": {
+      "properties": {
+        "kind": {
+          "enum": [
+            "Scalar"
+          ],
+          "type": "string"
+        },
+        "scalar": {
+          "$ref": "#/definitions/ScalarTypeMapKeyEnum"
+        }
+      },
+      "type": "object"
+    },
+    "ScalarType": {
+      "properties": {
+        "kind": {
+          "enum": [
+            "Scalar"
+          ],
+          "type": "string"
+        },
+        "scalar": {
+          "$ref": "#/definitions/ScalarTypeEnum"
+        }
+      },
+      "type": "object"
+    },
+    "UniqueDefKind": {
+      "enum": [
+        "Enum",
+        "Function",
+        "Object"
+      ],
+      "type": "string"
+    }
+  },
+  "properties": {
+    "enums": {
+      "items": {
+        "$ref": "#/definitions/EnumDef"
+      },
+      "type": "array"
+    },
+    "functions": {
+      "items": {
+        "$ref": "#/definitions/FunctionDef"
+      },
+      "type": "array"
+    },
+    "objects": {
+      "items": {
+        "$ref": "#/definitions/ObjectDef"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

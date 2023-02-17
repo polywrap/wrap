@@ -1,0 +1,17 @@
+type Module implements Interface_Module {
+  mapMethod(
+    map: Map @annotate(type: "Map<String!, Int!>")
+  ): Map @annotate(type: "Map<String!, Int!>")
+}
+
+type CustomType {
+  map: Map! @annotate(type: "Map<String!, Int>!")
+  mapOfArr: Map! @annotate(type: "Map<String!, [Int!]!>!")
+  mapOfObj: Map! @annotate(type: "Map<String!, AnotherType!>!")
+  mapOfArrOfObj: Map! @annotate(type: "Map<String!, [AnotherType!]!>!")
+  mapOfMapOfObj: Map! @annotate(type: "Map<String!, Map<String!, AnotherType!>!>!")
+}
+
+type AnotherType {
+  prop: String
+}

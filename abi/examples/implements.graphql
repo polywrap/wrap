@@ -1,0 +1,17 @@
+#import { Module, Foo } into External from "wrap://ens/external.eth"
+
+type Module implements External_Module {
+  func(arg: Int!): Int!
+  exec(arg: String!): String!
+}
+
+type Bar implements External_Foo {
+  propA: Int!
+  propB: String!
+}
+
+type Baz implements Bar {
+  propA: Int!
+  propB: String!
+  propC: String!
+}
