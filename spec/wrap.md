@@ -1,20 +1,49 @@
 # WRAP Specification
 
-WRAP defines the rules for bi-directional communication between a Host and a Wasm module by defining the processes of invocation and subinvocation. It makes use of Host allocated Wasm shared memory to pass encoded buffers between the Host and the Wasm module.
+WRAP defines a set of standards for creating extensible packages that can run on any platform.
+The core principles of WRAP are:
+- Portability
+- Extensibility
+- Composability
+- Security
+
+## WRAP package
+WRAP package is a collection that contains a WRAP manifest, a Wasm module and optional resource files.
+
+### WRAP manifest 
+The WRAP manifest is a MessagePack encoded binary file that contains metadata about a WRAP package.
+The metadata consists of the following:
+- Version of the WRAP specification
+- Name of the WRAP package
+- Application Binary Interface (ABI)
+
+### WRAP module
+The WRAP module is a Wasm module that allows for bi-directional communication between the Host and itself by defining the processes of invocation and subinvocation. 
+
+It makes use of Host allocated shared memory to pass encoded buffers between the Host and the Wasm module.
 
 The Wasm module must define the following imports and exports:
 
 #### Exports
-- `_invoke: (bufferLen: u32) => u32`
-    - sends the length of input buffer to Wasm module and it returns the length and the ptr to the new 8 byte long response buffer which contains length of the result buffer + pointer to the result buffer
+- `_invoke: (optBufLen: u32) => u32`
+    - Used for invoking functions defined in the Wasm module. 
+    - *Params:*
+        - `optBufLen(u32)` is the length of the encoded invocation options buffer 
+    - *Returns(u32):* the 8 byte long response buffer which contains length of the result buffer + pointer to the result buffer
 
 #### Imports
-- `__subinvoke: (bufferPtr: u32, bufferLen: u32) => u32`
-    - Allows sending any buffer from the Wasm module to the host. Host returns the length of the result buffer to the Wasm module.
+- `__subinvoke: (optBufPtr: u32, optBufLen: u32) => u32`
+    - Used for subinvoking functions defined in the Host. 
+    - *Params:*
+        - `optBufPtr(u32)` is the pointer to the encoded subinvocation options buffer
+        - `optBufLen(u32)` is the length of the encoded subinvocation options buffer 
+    - *Returns(u32):* the length of the subinvocation result buffer
 - `__fill_buffer: (bufferPtr: u32) => void` 
-    - Fills the buffer at given buffer pointer with the data host wants to send to the Wasm module
+    - A helper function that copies a prepared buffer, of the data host needs to send to the Wasm module, to the provided pointer (`bufferPtr`) in shared memory.
+    - *Params:*
+        - `bufferPtr(u32)` is pointer to the empty allocated buffer in shared memory. 
 
-### Invocation
+#### Invocation
 
 Invocation is a process of calling any functions defined in the Wasm module directly from the Host.
 
@@ -40,7 +69,7 @@ The response buffer is a helper buffer used to encode the pointer and length of 
 
 The result buffer contains the Msgpack encoded return value of the invoked Wasm function.
 
-### Subinvocation
+#### Subinvocation
 Subinvocation is a process of calling any functions defined in the Host from the Wasm module.
 
 Similar to an invocation, to perform a subinvocation, one must provide Invocation options which consists of function name and arguments. The Wasm module must encode it into an invocation options buffer. The function arguments are serialized into a buffer using MsgPack. Then the invoking function name is UTF-8 encoded and concatenated with the encoded function name length and the arguments buffer into an invocation options buffer.
@@ -52,8 +81,7 @@ Once the subinvocation completes, the host returns the length of the result buff
 The result buffer contains the Msgpack encoded return value of the subinvoked host function.
 
 
-### Invocation sequence diagram
-
+#### Invocation sequence diagram
 [![](https://mermaid.ink/img/pako:eNqFlVFvmzAQx7_KyU-JSqxBkpXykIdpmlZp2qb2YS9IkQOmtQY2MyZSVfW776gJ2EC2PKBg_j_f3f8O80oylXOSkIb_abnM-GfBnjSrUgn4Y5lRGu7lWf3m2i7VTBuRiZpJA19VY-arv1hTgV3uyc3hcNNpEwgpCHn-URuhZGM13QMU2OcRBUwCM1pZ2Ro2h5741BYecNPFSWBL4Sjew6wG3Tcu11bbaVBrpTsKrCxVxgxHUcG1TyyE6vE--T2GOhaiLI-nCf7T6PVCNR8pZKp-GXUBXEOQ2dgsFxK_pZBzxxXEnWwtoHlmQD-dVuFdGEAUbfGy3_chvivDQZ25BrthTOHRYMtsr4pWZl1DIEN7LKBqA6KApj1Zb-3qLLGYhkPDUHs_9my4G7yc-xnTqHN0CLJyIfQn8HYZmzrzOabbwSEX8TMZ4dGOC797_7fkxEKw_aTmB944kfDOq3nS3pjiVLhKrOuqu7eziZ2Q_4g79TqeTq-LjdO4UO9dP8YuEMB_8OlAL83Oh0nX7GZ-TZbmMl-eZMzti5Cieb46ygPqRe9ijyfNpYPCt9EnwgnhvIUPTe1DXfX9iRfRUYE-LRwT4dZ9v63S2XmJ2HnEpQfBWIBzoA0mDn3pj2XcZ097BQlIxXXFRI7fgtdOnxLzzCueEuwgyXnB2tKkJJVvKGWtUY8vMiOJ0S0PSFvnOKL9p4MkBSsb_vYXcHIEnw?type=png)](https://mermaid.live/edit#pako:eNqFlVFvmzAQx7_KyU-JSqxBkpXykIdpmlZp2qb2YS9IkQOmtQY2MyZSVfW776gJ2EC2PKBg_j_f3f8O80oylXOSkIb_abnM-GfBnjSrUgn4Y5lRGu7lWf3m2i7VTBuRiZpJA19VY-arv1hTgV3uyc3hcNNpEwgpCHn-URuhZGM13QMU2OcRBUwCM1pZ2Ro2h5741BYecNPFSWBL4Sjew6wG3Tcu11bbaVBrpTsKrCxVxgxHUcG1TyyE6vE--T2GOhaiLI-nCf7T6PVCNR8pZKp-GXUBXEOQ2dgsFxK_pZBzxxXEnWwtoHlmQD-dVuFdGEAUbfGy3_chvivDQZ25BrthTOHRYMtsr4pWZl1DIEN7LKBqA6KApj1Zb-3qLLGYhkPDUHs_9my4G7yc-xnTqHN0CLJyIfQn8HYZmzrzOabbwSEX8TMZ4dGOC797_7fkxEKw_aTmB944kfDOq3nS3pjiVLhKrOuqu7eziZ2Q_4g79TqeTq-LjdO4UO9dP8YuEMB_8OlAL83Oh0nX7GZ-TZbmMl-eZMzti5Cieb46ygPqRe9ijyfNpYPCt9EnwgnhvIUPTe1DXfX9iRfRUYE-LRwT4dZ9v63S2XmJ2HnEpQfBWIBzoA0mDn3pj2XcZ097BQlIxXXFRI7fgtdOnxLzzCueEuwgyXnB2tKkJJVvKGWtUY8vMiOJ0S0PSFvnOKL9p4MkBSsb_vYXcHIEnw)
 
 #### Glossary
