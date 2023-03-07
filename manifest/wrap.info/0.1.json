@@ -8,6 +8,7 @@
     "type",
     "abi"
   ],
+  "description": "Wrap Manifest",
   "properties": {
     "version": {
       "description": "WRAP Standard Version",
@@ -26,7 +27,7 @@
     },
     "abi": {
       "description": "Information of modules",
-      "$ref": "https://raw.githubusercontent.com/polywrap/wrap/master/manifest/abi/0.1.json"
+      "$ref": "https://raw.githubusercontent.com/polywrap/wrap/nk/wrap-0-1-docs/manifest/abi/0.1.json"
     }
   }
 }

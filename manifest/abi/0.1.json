@@ -2,6 +2,7 @@
   "id": "Abi",
   "type": "object",
   "unevaluatedProperties": false,
+  "description": "ABI JSON Schema",
   "properties": {
     "version": {
       "description": "ABI Version",
