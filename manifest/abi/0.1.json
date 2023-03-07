@@ -235,7 +235,7 @@
       "properties": {
         "getImplementations": {
           "type": "object",
-          "description": "Allows to enbale/disable the `getImplementations` capability",
+          "description": "Allows enabling/disabling the `getImplementations` capability",
           "required": ["enabled"],
           "properties": {
             "enabled": {
