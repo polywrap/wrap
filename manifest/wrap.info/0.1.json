@@ -8,7 +8,7 @@
     "type",
     "abi"
   ],
-  "description": "Wrap Manifest",
+  "description": "Wrap Manifest that contains metadata for the WRAP package",
   "properties": {
     "version": {
       "description": "WRAP Standard Version",
