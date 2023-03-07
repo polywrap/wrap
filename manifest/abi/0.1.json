@@ -2,6 +2,7 @@
   "id": "Abi",
   "type": "object",
   "unevaluatedProperties": false,
+  "description": "WRAP ABI that describes the interface of the WRAP module",
   "properties": {
     "version": {
       "description": "ABI Version",
@@ -60,6 +61,7 @@
   "definitions": {
     "objectDefinition": {
       "type": "object",
+      "description": "Object definition that describes the structure of the object",
       "allOf": [
         {
           "$ref": "#/definitions/genericDefinition"
@@ -89,6 +91,7 @@
     },
     "moduleDefinition": {
       "type": "object",
+      "description": "Module definition that describes the structure of the module",
       "allOf": [
         {
           "$ref": "#/definitions/genericDefinition"
@@ -124,6 +127,7 @@
     },
     "interfaceImplementedDefinition": {
       "type": "object",
+      "description": "Interface Implemented definition that describes the interface implemented by the module",
       "allOf": [
         {
           "$ref": "#/definitions/genericDefinition"
@@ -133,6 +137,7 @@
     },
     "methodDefinition": {
       "type": "object",
+      "description": "Method definition that describes the signature of the method",
       "required": ["return"],
       "allOf": [
         {
@@ -151,6 +156,7 @@
             },
             "env": {
               "type": "object",
+              "description": "Allows marking the env as required for the method",
               "properties": {
                 "required": {
                   "type": "boolean"
@@ -169,6 +175,7 @@
     },
     "envDefinition": {
       "type": "object",
+      "description": "Env definition that describes the structure of the env",
       "allOf": [
         {
           "$ref": "#/definitions/objectDefinition"
@@ -177,6 +184,7 @@
     },
     "enumDefinition": {
       "type": "object",
+      "description": "Enum definition that describes the structure of the enum",
       "required": ["constants"],
       "allOf": [
         {
@@ -201,6 +209,7 @@
     },
     "interfaceDefinition": {
       "type": "object",
+      "description": "Interface definition that describes the structure of the interface",
       "required": ["capabilities"],
       "allOf": [
         {
@@ -222,9 +231,11 @@
     },
     "capabilityDefinition": {
       "type": "object",
+      "description": "Capability definition that contains the list of capabilities",
       "properties": {
         "getImplementations": {
           "type": "object",
+          "description": "Allows enabling/disabling the `getImplementations` capability",
           "required": ["enabled"],
           "properties": {
             "enabled": {
@@ -238,6 +249,7 @@
     },
     "importedDefinition": {
       "type": "object",
+      "description": "Imported definition that contains the information about the imported `definitions`",
       "required": ["uri", "namespace", "nativeType"],
       "properties": {
         "uri": {
@@ -254,6 +266,7 @@
     },
     "importedObjectDefinition": {
       "type": "object",
+      "description": "Imported object definition that describes the structure of the imported `object`",
       "allOf": [
         {
           "$ref": "#/definitions/objectDefinition"
@@ -269,6 +282,7 @@
     },
     "importedModuleDefinition": {
       "type": "object",
+      "description": "Imported module definition that describes the structure of the imported `module`",
       "allOf": [
         {
           "$ref": "#/definitions/genericDefinition"
@@ -298,6 +312,7 @@
     },
     "importedEnumDefinition": {
       "type": "object",
+      "description": "Imported enum definition that describes the structure of the imported `enum`",
       "allOf": [
         {
           "$ref": "#/definitions/enumDefinition"
@@ -310,6 +325,7 @@
     },
     "importedEnvDefinition": {
       "type": "object",
+      "description": "Imported env definition that describes the structure of the imported `env`",
       "allOf": [
         {
           "$ref": "#/definitions/importedObjectDefinition"
@@ -319,6 +335,7 @@
     },
     "withKind": {
       "type": "object",
+      "description": "With kind definition that describes the kind of the definition",
       "properties": {
         "kind": {
           "type": "number"
@@ -329,6 +346,7 @@
     },
     "withComment": {
       "type": "object",
+      "description": "With comment definition that describes the comment of the definition",
       "properties": {
         "comment": {
           "type": "string"
@@ -338,6 +356,7 @@
     },
     "propertyDefinition": {
       "type": "object",
+      "description": "Property definition that describes the structure of the property",
       "allOf": [
         {
           "$ref": "#/definitions/withComment"
@@ -350,6 +369,7 @@
     },
     "genericDefinition": {
       "type": "object",
+      "description": "Generic definition that describes the structure of the definition",
       "allOf": [
         {
           "$ref": "#/definitions/withKind"
@@ -374,6 +394,7 @@
     },
     "anyDefinition": {
       "type": "object",
+      "description": "Any definition that describes the structure of any `definition`",
       "allOf": [
         {
           "$ref": "#/definitions/genericDefinition"
@@ -411,6 +432,7 @@
     },
     "arrayDefinition": {
       "type": "object",
+      "description": "Array definition that describes the structure of the `array`",
       "allOf": [
         {
           "$ref": "#/definitions/anyDefinition"
@@ -429,6 +451,7 @@
     },
     "scalarType": {
       "type": "string",
+      "description": "Scalar type that describes the type of the `scalar`",
       "enum": [
         "UInt",
         "UInt8",
@@ -448,6 +471,7 @@
     },
     "scalarDefinition": {
       "type": "object",
+      "description": "Scalar definition that describes the structure of the `scalar` type",
       "allOf": [
         {
           "$ref": "#/definitions/genericDefinition"
@@ -463,6 +487,7 @@
     },
     "mapKeyType": {
       "type": "string",
+      "description": "Map key type that describes the type of the `map` key",
       "enum": [
         "UInt",
         "UInt8",
@@ -477,6 +502,7 @@
     },
     "mapKeyDefinition": {
       "type": "object",
+      "description": "Map key definition that describes the structure of the `map` key",
       "allOf": [
         {
           "$ref": "#/definitions/anyDefinition"
@@ -495,6 +521,7 @@
     },
     "mapDefinition": {
       "type": "object",
+      "description": "Map definition that describes the structure of the `map`",
       "allOf": [
         {
           "$ref": "#/definitions/anyDefinition"
@@ -519,6 +546,7 @@
     },
     "objectRef": {
       "type": "object",
+      "description": "Object reference that points to an object definition",
       "allOf": [
         {
           "$ref": "#/definitions/genericDefinition"
@@ -528,6 +556,7 @@
     },
     "enumRef": {
       "type": "object",
+      "description": "Enum reference that points to an enum definition",
       "allOf": [
         {
           "$ref": "#/definitions/genericDefinition"
@@ -537,6 +566,7 @@
     },
     "unresolvedObjectOrEnumRef": {
       "type": "object",
+      "description": "Unresolved object or enum reference that doesn't point to any object or enum definition",
       "allOf": [
         {
           "$ref": "#/definitions/genericDefinition"
@@ -546,6 +576,7 @@
     },
     "importedModuleRef": {
       "type": "object",
+      "description": "Imported module points that refers to an imported module",
       "properties": {
         "type": {
           "type": "string"
