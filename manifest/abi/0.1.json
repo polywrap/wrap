@@ -156,6 +156,7 @@
             },
             "env": {
               "type": "object",
+              "description": "Allows marking the env as required for the method",
               "properties": {
                 "required": {
                   "type": "boolean"
@@ -234,6 +235,7 @@
       "properties": {
         "getImplementations": {
           "type": "object",
+          "description": "Allows to enbale/disable the `getImplementations` capability",
           "required": ["enabled"],
           "properties": {
             "enabled": {
